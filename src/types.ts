@@ -1,7 +1,9 @@
 export interface ITodoProps {
+  id: string;
   name: string;
   description: string;
+  date?: string;
   completed: boolean;
-  id: string;
   remove?: () => void;
+  done?: () => void;
 }

@@ -4,7 +4,7 @@ import {ITodoProps} from '../../types';
 import React from 'react';
 
 
-const Todo: React.FC<ITodoProps> = ({name, description, completed, remove}) => {
+const Todo: React.FC<ITodoProps> = ({name, description, date, completed, remove, done}) => {
   const currentDate = new Date();
   const formattedDate = format(currentDate, 'dd.MM.yyyy');
 
@@ -14,10 +14,10 @@ const Todo: React.FC<ITodoProps> = ({name, description, completed, remove}) => {
         <p>{description}</p>
       </h5>
       <div className={styles['todo-active-task-bottom']}>
-        <p>{formattedDate}</p>
+        <p>{date ? date : formattedDate}</p>
         <div>
-          {completed ? <button onClick={remove } className={styles['delete-btn']}>Delete</button> : null}
-          {!completed ? <button className={styles['done-btn']}>Done</button> : null}
+          <button onClick={remove} className={styles['delete-btn']}>Delete</button>
+          {!completed ? <button onClick={done} className={styles['done-btn']}>Done</button> : null}
         </div>
       </div>
     </div>
