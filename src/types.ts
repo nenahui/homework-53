@@ -3,4 +3,5 @@ export interface ITodoProps {
   description: string;
   completed: boolean;
   id: string;
+  remove?: () => void;
 }

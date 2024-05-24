@@ -50,7 +50,6 @@
       margin-bottom: 14px;
 
 
-
       & h5 {
         margin: 0;
         text-align: left;
@@ -79,12 +78,20 @@
         }
 
         & button {
-          background: rgba(255, 255, 255, 0.06) url('./check-ic.svg') left 6px center no-repeat;
-          padding: 4px 6px 4px 26px;
+          margin: 0 5px;
+          padding: 4px 10px 4px 30px;
           border-radius: 17px;
-          border: none;
+          border: none
         }
       }
     }
   }
+}
+
+.delete-btn {
+  background: rgba(255, 255, 255, 0.06) url('./trash-ic.svg') left 6px center no-repeat;
+}
+
+.done-btn {
+  background: rgba(255, 255, 255, 0.06) url('./check-ic.svg') left 6px center no-repeat;
 }

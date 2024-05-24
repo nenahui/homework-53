@@ -8,8 +8,6 @@ import {ITodoProps} from './types';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
-  const handleModal = () => setShowModal(prevState => !prevState);
-
   const [tasks, setTasks] = useState<ITodoProps[]>([
     {name: 'HTML | CSS', description: 'Изучить базу HTML и CSS', completed: true, id: Math.random().toString()},
     {name: 'JavaScript', description: 'Изучить базу JavaScript', completed: true, id: Math.random().toString()},
@@ -18,26 +16,52 @@ function App() {
     {name: 'Google', description: 'Устроиться в компанию Google', completed: false, id: Math.random().toString()}
   ]);
 
+  const handleModal = () => setShowModal(prevState => !prevState);
+
+  const removeTask = (id: string) => {
+    setTasks((prevState) => {
+      return prevState.filter((task) => task.id !== id);
+    });
+  };
+
   const tasksCopy = [...tasks];
-  const tasksList = tasksCopy.map((task) => {
-    return <Todo key={task.id} id={Math.random().toString()} name={task.name} completed={task.completed}
-                 description={task.description}/>;
-  });
+  const activeTasks = tasksCopy.filter(task => !task.completed);
+  const doneTasks = tasksCopy.filter(task => task.completed);
+
+  const activeTasksList = activeTasks.map(task => (
+    <Todo
+      key={task.id}
+      remove={() => removeTask(task.id)}
+      id={task.id}
+      name={task.name}
+      completed={task.completed}
+      description={task.description}
+    />
+  ));
+
+  const doneTasksList = doneTasks.map(task => (
+    <Todo
+      key={task.id}
+      remove={() => removeTask(task.id)}
+      id={task.id}
+      name={task.name}
+      completed={task.completed}
+      description={task.description}
+    />
+  ));
 
   return (
-    <>
+    <div className={'App'}>
       <div className={styles['container']}>
-
         <div className={styles['todo-active']}>
           <div className={styles['todo-active-top']}>
-            <h2>To do - (3)</h2>
+            <h2>To do - ({activeTasksList.length})</h2>
             <button onClick={handleModal}>Новая задача</button>
           </div>
           <div className={styles['todo-active-bottom']}>
-            {tasksList}
+            {activeTasksList.length > 0 ? activeTasksList : <p>Нет активных задач!</p>}
           </div>
         </div>
-
         <Modal show={showModal} onClose={handleModal}>
           <h2>Новая задача</h2>
           <form>
@@ -52,9 +76,19 @@ function App() {
             </div>
           </form>
         </Modal>
-
       </div>
-    </>
+
+      <div className={styles['container']}>
+        <div className={styles['todo-active']}>
+          <div className={styles['todo-active-top']}>
+            <h2>Completed - ({doneTasksList.length})</h2>
+          </div>
+          <div className={styles['todo-active-bottom']}>
+            {doneTasksList.length > 0 ? doneTasksList : <p>Нет завершенных задач!</p>}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
