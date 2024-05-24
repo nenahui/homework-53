@@ -29,16 +29,18 @@ const Modal: React.FC<IModalProps> = ({show, onClose, onSubmit}) => {
 
   const onFormSubmit = (event: FormEvent) => {
     event.preventDefault();
-    const todo: ITodoProps = {
-      id: nanoid().toString(),
-      name: taskData.name,
-      description: taskData.description,
-      completed: taskData.completed,
-    };
-    
-    onClose();
+    if (taskData.name.length > 0 && taskData.description.length > 0) {
+      const todo: ITodoProps = {
+        id: nanoid().toString(),
+        name: taskData.name,
+        description: taskData.description,
+        completed: taskData.completed,
+      };
 
-    onSubmit(todo);
+      onClose();
+
+      onSubmit(todo);
+    }
   };
 
   if (!show) {
