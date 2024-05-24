@@ -16,8 +16,8 @@ const Todo: React.FC<ITodoProps> = ({name, description, date, completed, remove,
       <div className={styles['todo-active-task-bottom']}>
         <p>{date ? date : formattedDate}</p>
         <div>
-          <button onClick={remove} className={styles['delete-btn']}>Delete</button>
-          {!completed ? <button onClick={done} className={styles['done-btn']}>Done</button> : null}
+          <button onClick={remove} className={styles['delete-btn']}>Удалить</button>
+          {!completed ? <button onClick={done} className={styles['done-btn']}>Завершить</button> : null}
         </div>
       </div>
     </div>
